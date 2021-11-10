@@ -10,7 +10,7 @@ services:
     build:
       context: .
     ports:
-      - "8081:8080"
+      - "80:8080"
     env_file:
       - .env
   nbs:
@@ -23,4 +23,5 @@ services:
       - "8888:8888"
     env_file:
       - .env
-    command: jupyter notebook --no-browser --allow-root --ip=0.0.0.0
+    command: jupyter notebook --ip 0.0.0.0 --no-browser --port=8888 --allow-root
+

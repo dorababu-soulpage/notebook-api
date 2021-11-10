@@ -95,5 +95,3 @@ if __name__ == "__main__":
     app.listen(8080)
     tornado.ioloop.IOLoop.current().start()
 
-
-# jupyter notebook --ip=0.0.0.0 8888

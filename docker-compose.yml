@@ -1,0 +1,26 @@
+# Version of docker-compose
+version: "3.4"
+
+# Containers we are going to run
+services:
+  api:
+    image: notebook-api
+    # The build parameters for this container.
+    # Here we define that it should build from the current directory
+    build:
+      context: .
+    ports:
+      - "8081:8080"
+    env_file:
+      - .env
+  nbs:
+    image: notebook
+    # The build parameters for this container.
+    # Here we define that it should build from the current directory
+    build:
+      context: .
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    command: jupyter notebook --no-browser --allow-root --ip=0.0.0.0

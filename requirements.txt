@@ -1,0 +1,3 @@
+notebook
+tornado
+python-decouple

@@ -37,42 +37,46 @@ class JupyterNotebookHandler(BaseRequestHandler):
         file = payload["notebook_name"]
         domain = config("DOMAIN_NAME")
 
+        notebooks_dir = "notebooks"
+    
         # Check whether the specified path exists or not
-        isExist = os.path.exists(project)
+        isExist = os.path.exists(f"{notebooks_dir}/{project}/")
         if not isExist:
             # Create a new directory because it does not exist
-            os.mkdir(project)
+            os.mkdir(f"{notebooks_dir}/{project}/")
 
             # create a new notebook file
-            with open(f"{project}/{file}.ipynb", "w") as notebook:
+            with open(f"{notebooks_dir}/{project}/{file}.ipynb", "w") as notebook:
                 pass
 
             # convert normal file to jupyter notebook file
-            FCM().new(path=f"{project}/{file}.ipynb")
+            FCM().new(path=f"{notebooks_dir}/{project}/{file}.ipynb")
 
-            notebook_url = f"{domain}/tree/{project}/{file}.ipynb"
+            notebook_url = f"{domain}/tree/{notebooks_dir}/{project}/{file}.ipynb"
             self.write({"notebook_url": notebook_url})
         else:
 
             # create a new notebook file
-            with open(f"{project}/{file}.ipynb", "w") as notebook:
+            with open(f"{notebooks_dir}/{project}/{file}.ipynb", "w") as notebook:
                 pass
 
             # convert normal file to jupyter notebook file
-            FCM().new(path=f"{project}/{file}.ipynb")
+            FCM().new(path=f"{notebooks_dir}/{project}/{file}.ipynb")
 
-            notebook_url = f"{domain}/tree/{project}/{file}.ipynb"
+            notebook_url = f"{domain}/tree/{notebooks_dir}/{project}/{file}.ipynb"
             self.write({"notebook_url": notebook_url})
 
 
 class ProjectNotebookHandler(BaseRequestHandler):
     def get(self, id):
         project_uid = id
-        notebooks = os.listdir(f"{project_uid}")
-        domain = config("DOMAIN_NAME")
+        notebooks_dir = "notebooks"
 
+        notebooks = os.listdir(f"{notebooks_dir}/{project_uid}")
+        domain = config("DOMAIN_NAME")
+    
         notebooks_paths = [
-            f"{domain}/tree/{project_uid}/{notebook}"
+            f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}"
             for notebook in notebooks
             if notebook.endswith(".ipynb")
         ]

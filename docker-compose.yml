@@ -13,6 +13,8 @@ services:
       - "80:8080"
     env_file:
       - .env
+    volumes:
+      - /home/ubuntu/notebooks:/apps/notebooks/
   nbs:
     image: notebook
     # The build parameters for this container.
@@ -23,5 +25,7 @@ services:
       - "8888:8888"
     env_file:
       - .env
+    volumes:
+      - /home/ubuntu/notebooks:/apps/notebooks/
     command: jupyter notebook --ip 0.0.0.0 --no-browser --port=8888 --allow-root
 

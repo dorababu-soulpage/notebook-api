@@ -1,5 +1,5 @@
-import os
 import json
+import os.path, time
 import tornado.ioloop
 import tornado.web
 from decouple import config
@@ -71,11 +71,16 @@ class ProjectNotebookHandler(BaseRequestHandler):
         domain = config("DOMAIN_NAME")
     
         notebooks_paths = [
-            f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}"
+             {
+                "notebook_name": notebook,
+                # "created":time.ctime(os.path.getctime({notebooks_dir}/{project_uid}/{notebook})),
+                # "updated":time.ctime(os.path.getctime({notebooks_dir}/{project_uid}/{notebook})),
+                "notebook_url": f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}",
+            }
             for notebook in notebooks
             if notebook.endswith(".ipynb")
         ]
-        self.write({"notebooks": notebooks_paths})
+        self.write({"notebooks":notebooks_paths})
 
 
 def routes():

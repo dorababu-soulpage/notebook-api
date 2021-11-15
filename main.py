@@ -86,7 +86,7 @@ class ProjectNotebookHandler(BaseRequestHandler):
 def routes():
     return tornado.web.Application(
         [
-            (r"/", IndexHandler),
+            (r"/notes", IndexHandler),
             (r"/new/notebook/", JupyterNotebookHandler),
             (r"/projects/(?P<id>[0-9\w]+)/notebooks/", ProjectNotebookHandler),
         ],
@@ -96,6 +96,6 @@ def routes():
 
 if __name__ == "__main__":
     app = routes()
-    app.listen(8080)
+    app.listen(9000)
     tornado.ioloop.IOLoop.current().start()
 

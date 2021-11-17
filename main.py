@@ -17,7 +17,10 @@ class BaseRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
-        self.set_header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+        self.set_header(
+            "Access-Control-Allow-Headers",
+            "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+        )
 
     def options(self):
         self.set_status(204)
@@ -33,7 +36,7 @@ class JupyterNotebookHandler(BaseRequestHandler):
         domain = config("DOMAIN_NAME")
 
         notebooks_dir = "notebooks"
-    
+
         # Check whether the specified path exists or not
         isExist = os.path.exists(f"{notebooks_dir}/{project}/")
         if not isExist:
@@ -69,18 +72,26 @@ class ProjectNotebookHandler(BaseRequestHandler):
 
         notebooks = os.listdir(f"{notebooks_dir}/{project_uid}")
         domain = config("DOMAIN_NAME")
-    
+
         notebooks_paths = [
-             {
+            {
                 "notebook_name": notebook,
-                # "created":time.ctime(os.path.getctime({notebooks_dir}/{project_uid}/{notebook})),
-                # "updated":time.ctime(os.path.getctime({notebooks_dir}/{project_uid}/{notebook})),
+                "created": time.ctime(
+                    os.path.getctime(
+                        os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
+                    )
+                ),
+                "updated": time.ctime(
+                    os.path.getmtime(
+                        os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
+                    )
+                ),
                 "notebook_url": f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}",
             }
             for notebook in notebooks
             if notebook.endswith(".ipynb")
         ]
-        self.write({"notebooks":notebooks_paths})
+        self.write({"notebooks": notebooks_paths})
 
 
 def routes():
@@ -98,4 +109,3 @@ if __name__ == "__main__":
     app = routes()
     app.listen(9000)
     tornado.ioloop.IOLoop.current().start()
-

@@ -1,0 +1,22 @@
+/*
+Placeholder for custom user CSS
+
+mainly to be overridden in profile/static/custom/custom.css
+
+This will always be an empty file
+*/
+
+/* change notebook logo */
+#ipython_notebook img {
+    display: block;
+    background: url("https://d-flux.s3.ap-south-1.amazonaws.com/dflux-logo.svg")
+      no-repeat;
+    background-size: contain;
+    width: 104px;
+    height: 28px;
+    padding-left: 100px;
+    padding-right: 50px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  

@@ -6,6 +6,10 @@ mainly to be overridden in profile/static/custom/custom.css
 This will always be an empty file
 */
 
+#ipython_notebook {
+  pointer-events: none;
+}
+
 /* change notebook logo */
 #ipython_notebook img {
   display: block;

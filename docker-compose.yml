@@ -15,6 +15,7 @@ services:
       - .env
     volumes:
       - /home/ubuntu/notebooks:/apps/notebooks/
+      - ./templates:/apps/notebooks/templates/
   nbs:
     image: notebook
     # The build parameters for this container.
@@ -27,4 +28,5 @@ services:
       - .env
     volumes:
       - /home/ubuntu/notebooks:/apps/notebooks/
-    command: jupyter notebook --ip 0.0.0.0 --no-browser --port=8888 --allow-root --NotebookApp.token='' --NotebookApp.notebook_dir='/apps/notebooks'
+      - ./templates:/apps/notebooks/templates/
+    command: jupyter notebook --ip 0.0.0.0 --no-browser --port=8888 --allow-root --NotebookApp.token='' --NotebookApp.notebook_dir='/apps/notebooks' --NotebookApp.default_url='notebooks/templates/index.html'

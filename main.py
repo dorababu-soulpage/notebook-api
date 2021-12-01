@@ -1,4 +1,5 @@
 import json
+import datetime
 import os.path, time
 import tornado.ioloop
 import tornado.web
@@ -76,16 +77,16 @@ class ProjectNotebookHandler(BaseRequestHandler):
         notebooks_paths = [
             {
                 "notebook_name": notebook,
-                "created": time.ctime(
+                "created": datetime.datetime.fromtimestamp(
                     os.path.getctime(
                         os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
                     )
-                ),
-                "updated": time.ctime(
+                ).strftime("%m/%d/%Y %H:%M %p"),
+                "updated": datetime.datetime.fromtimestamp(
                     os.path.getmtime(
                         os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
                     )
-                ),
+                ).strftime("%m/%d/%Y %H:%M %p"),
                 "notebook_url": f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}",
             }
             for notebook in notebooks

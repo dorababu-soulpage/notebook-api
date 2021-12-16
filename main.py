@@ -51,7 +51,7 @@ class JupyterNotebookHandler(BaseRequestHandler):
             # convert normal file to jupyter notebook file
             FCM().new(path=f"{notebooks_dir}/{project}/{file}.ipynb")
 
-            notebook_url = f"{domain}/tree/{notebooks_dir}/{project}/{file}.ipynb"
+            notebook_url = f"{domain}/{notebooks_dir}/{project}/{file}.ipynb"
             self.write({"notebook_url": notebook_url})
         else:
 
@@ -62,7 +62,7 @@ class JupyterNotebookHandler(BaseRequestHandler):
             # convert normal file to jupyter notebook file
             FCM().new(path=f"{notebooks_dir}/{project}/{file}.ipynb")
 
-            notebook_url = f"{domain}/tree/{notebooks_dir}/{project}/{file}.ipynb"
+            notebook_url = f"{domain}/{notebooks_dir}/{project}/{file}.ipynb"
             self.write({"notebook_url": notebook_url})
 
 
@@ -87,7 +87,7 @@ class ProjectNotebookHandler(BaseRequestHandler):
                         os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
                     )
                 ).strftime("%m/%d/%Y %H:%M %p"),
-                "notebook_url": f"{domain}/tree/{notebooks_dir}/{project_uid}/{notebook}",
+                "notebook_url": f"{domain}/{notebooks_dir}/{project_uid}/{notebook}",
             }
             for notebook in notebooks
             if notebook.endswith(".ipynb")

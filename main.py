@@ -89,12 +89,12 @@ class ProjectNotebookHandler(BaseRequestHandler):
                         os.path.getctime(
                             os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
                         )
-                    ).strftime("%m/%d/%Y %H:%M %p"),
+                    ).strftime("%m/%d/%Y %H:%M"),
                     "updated": datetime.datetime.fromtimestamp(
                         os.path.getmtime(
                             os.path.abspath(f"{notebooks_dir}/{project_uid}/{notebook}")
                         )
-                    ).strftime("%m/%d/%Y %H:%M %p"),
+                    ).strftime("%m/%d/%Y %H:%M"),
                     "notebook_url": f"{domain}/{notebooks_dir}/{project_uid}/{notebook}",
                 }
                 for notebook in notebooks
